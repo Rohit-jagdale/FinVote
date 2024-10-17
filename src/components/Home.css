@@ -1,0 +1,202 @@
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+.logo-img {
+    width: 40px; /* Adjust width as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 10px; /* Space between logo and text */
+    vertical-align: middle; /* Align with text vertically */
+}
+
+
+/* Additional Styles */
+.bot {
+    padding-top: 100px; /* Adjusted for fixed navbar */
+    height: 700px;
+    background-image: url("https://image-optimizer.cyberriskalliance.com/unsafe/1920x0/https://files.scmagazine.com/wp-content/uploads/2024/04/electionsecurity_AdobeStockImages_cropped-scaled.jpg");
+    background-size: cover;
+    color: white;
+    display: flex; /* Use flex to center content */
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+}
+
+.countdown {
+    text-align: center; /* Center the text */
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    padding: 20px; /* Add some padding */
+    border-radius: 10px; /* Rounded corners */
+    margin-bottom: 20px; /* Space between countdown and nav-sec */
+}
+
+.countdown h2 {
+    margin-bottom: 10px; /* Space below heading */
+    color: #333; /* Dark color for heading */
+}
+
+.countdown p {
+    font-size: 2rem; /* Larger font size for time display */
+    color: #007bff; /* Primary blue color */
+}
+
+
+/* Navigation Bar Styles */
+.navbar {
+    background-color: rgba(51, 51, 51, 0.8); /* Semi-transparent dark background */
+    backdrop-filter: blur(10px); /* Optional blur effect for the background */
+    padding: 1rem;
+    position: fixed; /* Keep the navbar fixed at the top */
+    width: 100%; /* Full width */
+    z-index: 1000; /* Ensure it's above other content */
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between; /* Space between logo and links/buttons */
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.8rem; /* Slightly larger for emphasis */
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.logo:hover {
+    color: #007bff; /* Highlight on hover */
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #007bff; /* Highlight on hover */
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.help-button,
+.adb-button {
+    background-color: transparent; /* Make the button background transparent */
+    color: #fff; /* Keep the text color white */
+    border: 2px solid #fff; /* Add a white border to make the button visible */
+    padding: 10px; /* Adjust padding for button size */
+    cursor: pointer;
+    border-radius: 50%; /* Make the buttons circular */
+    width: 50px; /* Set a width to make them circular */
+    height: 50px; /* Set a height to make them circular */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.help-button:hover,
+.adb-button:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Add a subtle background on hover */
+    transform: translateY(-2px);
+}
+
+.help-button:active,
+.adb-button:active {
+    background-color: rgba(255, 255, 255, 0.2); /* Slightly more pronounced on active state */
+    transform: translateY(0);
+}
+
+
+.help-button:active,
+.adb-button:active {
+    background-color: #004494; /* Even darker blue for active state */
+    transform: translateY(0);
+}
+
+/* Responsive Navigation Bar */
+@media (max-width: 768px) {
+    .navigation {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-links {
+        margin-top: 10px;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .nav-buttons {
+        margin-top: 10px;
+    }
+}
+
+/* Additional Styles */
+.bot {
+    padding-top: 450px;
+    padding-left: 450px;
+    height: 700px;
+    background-image: url("https://image-optimizer.cyberriskalliance.com/unsafe/1920x0/https://files.scmagazine.com/wp-content/uploads/2024/04/electionsecurity_AdobeStockImages_cropped-scaled.jpg");
+    background-size: cover;
+    color: white;
+}
+
+.nav-sec {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    width: 700px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+    color: black;
+    text-align: center;
+}
+
+/* Updated button styles for casting vote */
+.cast {
+    margin: 10px;
+    background-color: #007bff; /* Primary blue color */
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.cast:hover {
+    background-color: #0056b3; /* Darker blue for hover effect */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.cast:active {
+    background-color: #004494; /* Even darker blue for active state */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    transform: translateY(0);
+}
