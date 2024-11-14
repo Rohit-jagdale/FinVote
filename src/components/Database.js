@@ -25,8 +25,22 @@ function Database() {
     const collectData = async (e) => {
         e.preventDefault();
         
+        // try {
+        //     const result = await axios.post('http://localhost:4000/', {
+        //         firstName,
+        //         lastName,
+        //         age,
+        //         adharNumber,
+        //         area,
+        //         walletAddress // Include wallet address in the post data
+        //     });
+    
+        //     localStorage.setItem("user", JSON.stringify(result.data));
+        //     setSubmissionSuccess(true);
+        //     setSubmissionError(null);
+        // } 
         try {
-            const result = await axios.post('http://localhost:4000/', {
+            const result = await axios.post('https://finvote.onrender.com', {
                 firstName,
                 lastName,
                 age,
@@ -38,7 +52,7 @@ function Database() {
             localStorage.setItem("user", JSON.stringify(result.data));
             setSubmissionSuccess(true);
             setSubmissionError(null);
-        } catch (error) {
+        }catch (error) {
             console.error('Error submitting data:', error);
             setSubmissionError('Error submitting data. Please try again.');
         }
@@ -46,7 +60,7 @@ function Database() {
 
     const fetchUsers = async () => {
         try {
-            const response = await axios.get('http://localhost:4000/users');
+            const response = await axios.get('https://finvote.onrender.com');
             setUsers(response.data);
             setShowUsers(true);
         } catch (error) {
