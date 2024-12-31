@@ -62,7 +62,7 @@ const Home = () => {
 
                 <div className="nav-sec">
                     <p>Hello Voter</p>
-                    <button className="cast" onClick={handleVoteClick}>Cast Your Vote Now</button>
+                    <button className="cast" onClick={() => navigate('/voting')}>Cast Your Vote Now</button>
                 </div>
             </div>
         </div>

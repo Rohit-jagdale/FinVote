@@ -1,8 +1,10 @@
+import { startRegistration } from "@simplewebauthn/browser"
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Button, Form, Container, Header, Message, Table, Dropdown } from 'semantic-ui-react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Route } from "react-router-dom";
 
 function Database() {
     const [firstName, setFirstName] = useState("");
@@ -13,6 +15,7 @@ function Database() {
     const [walletAddress, setWalletAddress] = useState(""); // New state for MetaMask wallet address
     const [submissionSuccess, setSubmissionSuccess] = useState(false);
     const [submissionError, setSubmissionError] = useState(null);
+    // const [passKey, setpassKey] = useState(null);
     const [users, setUsers] = useState([]);
     const [showUsers, setShowUsers] = useState(false);
 
@@ -23,10 +26,88 @@ function Database() {
     ];
 
     const collectData = async (e) => {
+        let rawId
         e.preventDefault();
-        
+
+         //1. get challenge from server
+        const response = await axios.get(`http://localhost:4000/init-register?walletAddress=${walletAddress}`);
+    console.log("API Response:", response.data);
+
+    // Validate and encode fields if necessary
+    if (!response.data.challenge || !response.data.user.id) {
+        throw new Error("Missing required fields in response");
+    }
+
+    // 2. create passkey
+    const registrationsJSON = await startRegistration({
+        optionsJSON: response.data,
+        useAutoRegister: false, // optional, defaults to false
+    });
+    console.log("Registration Successfull:", registrationsJSON);
+    let passKey = registrationsJSON;
+
+//     // 3. Save passkey in DB
+//    const verifyResponse = await fetch('http://localhost:4000/verify-register', {
+//     credentials: "include",
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(registrationsJSON),
+//   })
+
+//   const verifyData = await verifyResponse.json()
+//   if (!verifyResponse.ok) {
+//     console.log(verifyData.error)
+//   }
+//   if (verifyData.verified) {
+//     console.log(`Successfully registered ${walletAddress}`)
+//   } else {
+//     console.log(`Failed to register`)
+//   }
+
+
+        try {
+            const result = await axios.post('http://localhost:4000/', {
+                firstName,
+                lastName,
+                age,
+                adharNumber,
+                area,
+                walletAddress,
+                passKey // Include wallet address in the post data
+            }, 
+        {withCredentials: true});
+
+        //     const data1 = await navigator.credentials.create({publicKey: {
+        //         challenge: new Uint8Array([0, 1, 2, 3, 4, 5, 6]),
+        //         rp: {name: "local finvote"},
+        //         user: {
+        //             id: new Uint8Array(16),
+        //             name: firstName,
+        //             displayName: "",
+        //         },
+        //         pubKeyCredParams: [
+        //             {type: "public-key", alg: -7},
+        //             {type: "public-key", alg: -8},
+        //             {type: "public-key", alg: -257},
+        //         ]
+        //     },
+        // })
+        // console.log(data1)
+        // rawId = data1.rawId
+        // console.log(rawId)
+
+    
+            localStorage.setItem("user", JSON.stringify(result.data));
+            setSubmissionSuccess(true);
+            setSubmissionError(null);
+        } 
+
+
+
         // try {
-        //     const result = await axios.post('http://localhost:4000/', {
+        //     const result = await axios.post('https://finvote.onrender.com', {
         //         firstName,
         //         lastName,
         //         age,
@@ -38,29 +119,30 @@ function Database() {
         //     localStorage.setItem("user", JSON.stringify(result.data));
         //     setSubmissionSuccess(true);
         //     setSubmissionError(null);
-        // } 
-        try {
-            const result = await axios.post('https://finvote.onrender.com', {
-                firstName,
-                lastName,
-                age,
-                adharNumber,
-                area,
-                walletAddress // Include wallet address in the post data
-            });
-    
-            localStorage.setItem("user", JSON.stringify(result.data));
-            setSubmissionSuccess(true);
-            setSubmissionError(null);
-        }catch (error) {
+        // }
+        catch (error) {
             console.error('Error submitting data:', error);
             setSubmissionError('Error submitting data. Please try again.');
         }
     };
 
+   
+
+  
+      
+      
+
+     
+      
+    
+      
+      
+      
+      
+
     const fetchUsers = async () => {
         try {
-            const response = await axios.get('https://finvote.onrender.com');
+            const response = await axios.get('http://localhost:4000/');
             setUsers(response.data);
             setShowUsers(true);
         } catch (error) {
